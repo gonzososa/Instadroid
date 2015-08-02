@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Instadroid</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_media_description">Image Media</string>
+    <string name="search">Search</string>
+</resources>
