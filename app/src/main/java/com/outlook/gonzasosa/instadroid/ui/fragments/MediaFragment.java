@@ -58,7 +58,7 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
             new Callback<MediaData>() {
                 @Override
                 public void success(MediaData mediaData, Response response) {
-                    listMedia.setAdapter (new MediaAdapter(getActivity(), mediaData.getElements ()));
+                    listMedia.setAdapter (new MediaAdapter (getActivity(), mediaData.getElements ()));
                 }
 
                 @Override
