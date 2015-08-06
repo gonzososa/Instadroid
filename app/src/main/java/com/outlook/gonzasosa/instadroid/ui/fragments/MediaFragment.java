@@ -19,8 +19,11 @@ import com.outlook.gonzasosa.instadroid.R;
 import com.outlook.gonzasosa.instadroid.adapters.MediaAdapter;
 import com.outlook.gonzasosa.instadroid.listeners.OnSearchTextChangedListener;
 import com.outlook.gonzasosa.instadroid.models.media.MediaData;
+import com.outlook.gonzasosa.instadroid.models.media.MediaElement;
 import com.outlook.gonzasosa.instadroid.rest.InstagramApiAdapter;
 import com.outlook.gonzasosa.instadroid.ui.Utils;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,13 +31,16 @@ import retrofit.client.Response;
 
 public class MediaFragment extends Fragment implements SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
     OnSearchTextChangedListener listener;
+    RecyclerView listMedia;
+    ArrayList<MediaElement> elements;
 
     public MediaFragment() {}
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setHasOptionsMenu (true);
+        super.onCreate(savedInstanceState);
+        Log.i (Utils.TAG, "Fragment created from scratch; elements exists? " + (elements == null ? "false" : "true"));
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -44,29 +50,62 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated  (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i (Utils.TAG, "Media Fragment Created");
+        listMedia = (RecyclerView) getActivity().findViewById (R.id.listMedia);
+        listMedia.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Log.i (Utils.TAG, "Activity created; elements exists? " + (elements == null ? "false" : "true"));
+    }
 
-        final RecyclerView listMedia = (RecyclerView) getActivity().findViewById (R.id.listMedia);
-        listMedia.setLayoutManager (new LinearLayoutManager(getActivity ()));
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i (Utils.TAG, "Resumed; elements exists? " + (elements == null ? "false" : "true"));
+        if (elements == null) {
+            InstagramApiAdapter.getAPI().getUsersMediaRecent
+                (386274185,
+                "14027441.ba6c721.9c2dd62a02c24cd2abb481ef6f6c3547",
+                33,
+                new Callback<MediaData>() {
+                    @Override
+                    public void success(MediaData mediaData, Response response) {
+                        elements = mediaData.getElements ();
+                        listMedia.setAdapter (new MediaAdapter (getActivity (), elements));
+                    }
 
-        InstagramApiAdapter.getAPI().getUsersMediaRecent
-            (386274185,
-            "14027441.ba6c721.9c2dd62a02c24cd2abb481ef6f6c3547",
-            33,
-            new Callback<MediaData>() {
-                @Override
-                public void success(MediaData mediaData, Response response) {
-                    listMedia.setAdapter (new MediaAdapter (getActivity(), mediaData.getElements ()));
-                }
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText (getActivity (), error.getMessage (), Toast.LENGTH_LONG).show ();
+                        Log.e (Utils.TAG, "Error GSON", error);
+                    }
+                });
+        } else {
+            listMedia.setAdapter (new MediaAdapter (getActivity (), elements));
+        }
+    }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText (getActivity(), error.getMessage (), Toast.LENGTH_LONG).show ();
-                    Log.e (Utils.TAG, "Error GSON", error);
-                }
-            });
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i (Utils.TAG, "Fragment paused; elements exists? " + (elements == null ? "false" : "true"));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i (Utils.TAG, "Fragment stopped; elements exists? " + (elements == null ? "false" : "true"));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i (Utils.TAG, "View Destroyed; elements exists? " + (elements == null ? "false" : "true"));
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i (Utils.TAG, "Fragment destroyed; elements exists? " + (elements == null ? "false" : "true"));
+        super.onDestroy();
     }
 
     @Override
@@ -77,10 +116,10 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
 
         SearchView sv = new SearchView (getActivity ());
         MenuItemCompat.setActionView (item, sv);
-        sv.setOnQueryTextListener (this);
+        sv.setOnQueryTextListener(this);
         MenuItemCompat.setOnActionExpandListener(item, this);
 
-        super.onCreateOptionsMenu (menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
