@@ -40,7 +40,7 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i (Utils.TAG, "Fragment created from scratch; elements exists? " + (elements == null ? "false" : "true"));
-        setHasOptionsMenu(true);
+        setHasOptionsMenu (true);
     }
 
     @Override

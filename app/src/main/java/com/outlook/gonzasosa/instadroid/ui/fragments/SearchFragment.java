@@ -24,7 +24,7 @@ public class SearchFragment extends Fragment {
         SearchFragment searchFragment = new SearchFragment ();
 
         Bundle bundle = new Bundle ();
-        bundle.putString("query", query);
+        bundle.putString ("query", query);
         searchFragment.setArguments (bundle);
 
         return searchFragment;
@@ -40,7 +40,7 @@ public class SearchFragment extends Fragment {
         return query;
     }
 
-    @Override
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate (R.layout.fragment_search, container, false);
@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         final RecyclerView listSearch = (RecyclerView) getActivity().findViewById (R.id.listSearch);
-        listSearch.setLayoutManager (new LinearLayoutManager (getActivity()));
+        listSearch.setLayoutManager (new LinearLayoutManager (getActivity ()));
 
         String q = getQuery ();
         String token = Utils.getServiceToken (getActivity());
