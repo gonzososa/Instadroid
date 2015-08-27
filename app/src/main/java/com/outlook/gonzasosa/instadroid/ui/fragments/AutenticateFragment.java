@@ -93,7 +93,7 @@ public class AutenticateFragment extends Fragment {
 
     public void getAuthenticateToken (String code) {
         requestToken (code, Utils.OAUTH_SERVICE_TOKEN_URL)
-            .subscribeOn (Schedulers.newThread ())
+            .subscribeOn (Schedulers.io ())
             .observeOn  (AndroidSchedulers.mainThread ())
             .subscribe  (new Observer<Token>() {
                 @Override
