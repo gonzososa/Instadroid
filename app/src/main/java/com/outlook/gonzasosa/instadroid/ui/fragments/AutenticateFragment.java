@@ -131,12 +131,12 @@ public class AutenticateFragment extends Fragment {
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection ();
             connection.setRequestMethod ("POST");
             connection.setDoOutput (true);
-            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty ("Accept", "application/json");
 
             OutputStream outputStream = connection.getOutputStream ();
             byte [] buffer = getRequestTokenBody (code).getBytes ("UTF-8");
             outputStream.write (buffer);
-            outputStream.flush();
+            outputStream.flush ();
             outputStream.close ();
 
             InputStreamReader isr = new InputStreamReader (connection.getInputStream(), "utf8");
