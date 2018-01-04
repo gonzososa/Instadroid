@@ -41,20 +41,20 @@ public class SearchFragment extends Fragment {
     }
 
         @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView (LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate (R.layout.fragment_search, container, false);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated (savedInstanceState);
 
         final RecyclerView listSearch = (RecyclerView) getActivity().findViewById (R.id.listSearch);
         listSearch.setLayoutManager (new LinearLayoutManager (getActivity ()));
 
         String q = getQuery ();
-        String token = Utils.getServiceToken (getActivity());
+        String token = Utils.getServiceToken (getActivity ());
 
         InstagramApiAdapter.getAPI().searchUsers (q, token, new Callback<SearchData>() {
             @Override

@@ -46,16 +46,17 @@ public class MainActivity extends AppCompatActivity implements
         ed.apply();*/
 
         if (Utils.getServiceToken (getBaseContext ()).equals ("")) {
-            autenticateFragment = new AutenticateFragment();
-            autenticateFragment.setOnAuthenticateListener(this);
+            autenticateFragment = new AutenticateFragment ();
+            autenticateFragment.setOnAuthenticateListener (this);
             getSupportFragmentManager().beginTransaction ()
                 .setTransition (FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add (R.id.main_content, autenticateFragment)
                 .commit ();
         } else {
             mediaFragment = new MediaFragment ();
-            mediaFragment.setOnSearchTextListener(this);
-            getSupportFragmentManager().beginTransaction()
+            mediaFragment.setOnSearchTextListener (this);
+            getSupportFragmentManager ()
+                .beginTransaction ()
                 .setTransition (FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add (R.id.main_content, mediaFragment)
                 .commit ();
@@ -84,10 +85,11 @@ public class MainActivity extends AppCompatActivity implements
 
         mediaFragment = new MediaFragment ();
         mediaFragment.setOnSearchTextListener(this);
-        getSupportFragmentManager().beginTransaction()
-                .setTransition (FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace (R.id.main_content, mediaFragment)
-                .commit ();
+        getSupportFragmentManager ()
+            .beginTransaction ()
+            .setTransition (FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .replace (R.id.main_content, mediaFragment)
+            .commit ();
 
     }
 

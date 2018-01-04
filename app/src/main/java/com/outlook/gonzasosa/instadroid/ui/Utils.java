@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 public class Utils {
 
     public static final String INSTAGRAM_CLIENT_ID                  = "b5b89b553c394b619199790df5dc8ddf";
-    public static final String INSTAGRAM_CLIENT_SECRET              = "df5a04ef60f64267ae8d943d347c4754";
-
+    public static final String INSTAGRAM_CLIENT_SECRET              = "ecac5fd012944019a9243f38d2a3298c";
+    public static final String INSTAGRAM_SERVICE_TOKEN              = "14027441.ba6c721.9c2dd62a02c24cd2abb481ef6f6c3547";
+//access_token=14027441.b5b89b5.4f0217f994e94510ac453c723e877899
+//&count=33
     public static final String OAUTH_SERVICE_CODE_URL_BASE          = "https://api.instagram.com/oauth/authorize/?";
     public static final String OAUTH_SERVICE_CODE_CLIENT_ID         = "client_id=";
     public static final String OAUTH_SERVICE_CODE_REDIRECT_URI      = "&redirect_uri=";
@@ -26,24 +28,27 @@ public class Utils {
     public static final String SHARED_PREFERENCES_KEY               = "token";
     public static final String SHARED_PREFERENCES_CONTEXT           = "Instadroid";
 
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_ACCESS_TOKEN   = "access_token";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_ID      = "id";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_CREATED_TIME = "created_time";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_LINK    = "link";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_TYPE    = "type";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_USERS_IN_PHOTO = "users_in_photo";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_FILTER  = "filter";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_TAGS    = "tags";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_TEXT    = "text";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_LATITUDE  = "latitude";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_LONGITUDE = "longitude";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_NAME      = "name";
-    public static final String MEDIAELEMENT_SERIALIZED_NAME_STREET_ADDRESS = "street_address";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_ACCESS_TOKEN    = "access_token";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_ID              = "id";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_CREATED_TIME    = "created_time";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_LINK            = "link";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_TYPE            = "type";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_USERS_IN_PHOTO  = "users_in_photo";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_FILTER          = "filter";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_TAGS            = "tags";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_TEXT            = "text";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_LATITUDE        = "latitude";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_LONGITUDE       = "longitude";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_NAME            = "name";
+    public static final String MEDIAELEMENT_SERIALIZED_NAME_STREET_ADDRESS  = "street_address";
 
     public static final String URL_SERVICE_BASE                     = "https://api.instagram.com/v1";
     public static final String URL_USERS_MEDIA_RECENT               = "/users/{id}/media/recent/?access_token=token&count=max";
     public static final String URL_USERS_SEARCH                     = "/users/search?q=query&access_token=token";
     public static final String MEDIAELEMENT_SERIALIZED_NAME_QUERY   = "q";
+
+    public static final int DEFAULT_USER_ID = 386274185;//15561680
+    public static final int DEFAULT_MAX_COUNT = 33;
 
     public static String getServiceToken (Context context) {
         SharedPreferences preferences = context.getSharedPreferences (SHARED_PREFERENCES_CONTEXT, Context.MODE_PRIVATE);

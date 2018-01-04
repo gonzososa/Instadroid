@@ -1,6 +1,7 @@
 package com.outlook.gonzasosa.instadroid.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,37 +45,39 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate (R.layout.fragment_media, container, false);
     }
 
     @Override
     public void onActivityCreated  (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         listMedia = (RecyclerView) getActivity().findViewById (R.id.listMedia);
-        listMedia.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listMedia.setLayoutManager(new LinearLayoutManager (getActivity ()));
         Log.i (Utils.TAG, "Activity created; elements exists? " + (elements == null ? "false" : "true"));
     }
 
     @Override
-    public void onResume() {
+    public void onResume () {
         super.onResume();
+
         Log.i (Utils.TAG, "Resumed; elements exists? " + (elements == null ? "false" : "true"));
+
         if (elements == null) {
-            InstagramApiAdapter.getAPI().getUsersMediaRecent
-                (386274185,
-                "14027441.ba6c721.9c2dd62a02c24cd2abb481ef6f6c3547",
-                33,
+            InstagramApiAdapter.getAPI().getUsersMediaRecent (
+                Utils.DEFAULT_USER_ID,
+                Utils.getServiceToken(getContext()),
+                Utils.DEFAULT_MAX_COUNT,
                 new Callback<MediaData>() {
                     @Override
-                    public void success(MediaData mediaData, Response response) {
+                    public void success (MediaData mediaData, Response response) {
                         elements = mediaData.getElements ();
                         listMedia.setAdapter (new MediaAdapter (getActivity (), elements));
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void failure (RetrofitError error) {
                         Toast.makeText (getActivity (), error.getMessage (), Toast.LENGTH_LONG).show ();
                         Log.e (Utils.TAG, "Error GSON", error);
                     }
@@ -85,8 +88,8 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onPause () {
+        super.onPause ();
         Log.i (Utils.TAG, "Fragment paused; elements exists? " + (elements == null ? "false" : "true"));
     }
 
@@ -112,12 +115,12 @@ public class MediaFragment extends Fragment implements SearchView.OnQueryTextLis
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
         MenuItem item = menu.add ("Search");
         item.setIcon (R.drawable.ic_search_white_48dp);
-        MenuItemCompat.setShowAsAction (item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS|MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        MenuItemCompat.setShowAsAction (item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS | MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         SearchView sv = new SearchView (getActivity ());
         MenuItemCompat.setActionView (item, sv);
         sv.setOnQueryTextListener(this);
-        MenuItemCompat.setOnActionExpandListener(item, this);
+        MenuItemCompat.setOnActionExpandListener (item, this);
 
         super.onCreateOptionsMenu(menu, inflater);
     }

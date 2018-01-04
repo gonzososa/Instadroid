@@ -1,7 +1,9 @@
 package com.outlook.gonzasosa.instadroid.ui.fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -42,8 +44,8 @@ public class AutenticateFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        webView = new WebView (getActivity().getBaseContext());
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        webView = new WebView (getActivity().getBaseContext ());
         webView.setWebChromeClient(new WebChromeClient());
 
         //webview needs a progressbar
@@ -95,7 +97,16 @@ public class AutenticateFragment extends Fragment {
         requestToken (code, Utils.OAUTH_SERVICE_TOKEN_URL)
             .subscribeOn (Schedulers.io ())
             .observeOn  (AndroidSchedulers.mainThread ())
-            .subscribe  (new Observer<Token>() {
+            .subscribe (token -> {
+                if (token != null) {
+                    listener.authenticateSucesss (token);
+                } else {
+                    Snackbar.make (getView (), Utils.OAUTH_ERROR_DURING_AUTHENTICATION,
+                        Snackbar.LENGTH_LONG).show ();
+                }
+            });
+
+        /*.subscribe  (new Observer<Token>() {
                 @Override
                 public void onCompleted () {}
 
@@ -111,7 +122,7 @@ public class AutenticateFragment extends Fragment {
                                         Snackbar.LENGTH_LONG).show ();
                     }
                 }
-            });
+            });*/
     }
 
     private Observable<Token> requestToken (final String code, final String uri) {
