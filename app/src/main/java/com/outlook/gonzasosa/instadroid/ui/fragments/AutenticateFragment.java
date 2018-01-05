@@ -150,7 +150,7 @@ public class AutenticateFragment extends Fragment {
             outputStream.flush ();
             outputStream.close ();
 
-            InputStreamReader isr = new InputStreamReader (connection.getInputStream(), "utf8");
+            InputStreamReader isr = new InputStreamReader (connection.getInputStream (), "utf8");
             BufferedReader reader = new BufferedReader (isr);
             StringBuilder builder = new StringBuilder ();
             String line;

@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.outlook.gonzasosa.instadroid.listeners.OnSearchTextChangedListener;
+import com.outlook.gonzasosa.instadroid.ui.fragments.DownloadTextFile;
 import com.outlook.gonzasosa.instadroid.ui.fragments.MediaFragment;
 import com.outlook.gonzasosa.instadroid.R;
 import com.outlook.gonzasosa.instadroid.listeners.OnAuthenticateSucessListener;
@@ -38,7 +40,11 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar (toolbar);
+
+        TextView textView = new TextView (this);
+        String uri = "https://drive.google.com/uc?id=1Yr2DXSCeDX7Dgs9vliPHbykegzVgdAPM";
+        new DownloadTextFile(textView).execute (uri);
 
         /*SharedPreferences e = getSharedPreferences (Utils.SHARED_PREFERENCES_CONTEXT, Context.MODE_PRIVATE);
         SharedPreferences.Editor ed = e.edit();
